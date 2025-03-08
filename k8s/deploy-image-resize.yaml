@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-resize-worker
+  labels:
+    app: image-resize-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-resize-worker
+  template:
+    metadata:
+      labels:
+        app: image-resize-worker
+    spec:
+      imagePullSecrets:
+        - name: docker-repository
+      containers:
+        - name: image-resize-worker
+          image: docker-repository/image-service:latest
+          imagePullPolicy: Always
+          command: [ "poetry" ]
+          args: [ "run", "python", "-m", "imageservice.ports.workers.image_resizing_consumer", "-w", "1" ]
+          resources:
+            requests:
+              memory: "54Mi"
+              cpu: "5m"
+            limits:
+              memory: "300Mi"
+              cpu: "50m"
+          env:
+            - name: QUEUE_URL
+              value: "https://sqs.us-east-2.amazonaws.com/328097268885/ImageQueue.fifo"
+            - name: LEVEL
+              value: "INFO"

@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "image-service"
+version = "0.1.0"
+description = "Image service to resize or other service"
+authors = ["Everton Tomalok <evertontomalok123@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Pillow = "^8.2.0"
+requests-html = "^0.10.0"
+celery = {extras = ["sqs"], version = "^5.0.5"}
+boto3 = "^1.17.57"
+python-magic = "^0.4.22"
+click = "^7.1.2"
+pymongo = {extras = ["srv"], version = "^3.11.3"}
+tqdm = "^4.60.0"
+fastapi = "^0.63.0"
+
+[tool.poetry.dev-dependencies]
+black = "^20.8b1"
+autoflake = "^1.4"
+isort = "^5.8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

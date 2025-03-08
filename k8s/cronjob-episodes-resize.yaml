@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cronjob-episodes-image-resize
+spec:
+  schedule: "0 2 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: docker-repository
+          containers:
+          - name: cronjob-episodes-image-resize
+            image: docker-repository/image-service:latest
+            imagePullPolicy: Always
+            command: ["poetry"]
+            args: ["run", "python", "-m", "scripts.resize_images_from_episodes_collection"]
+          restartPolicy: Never

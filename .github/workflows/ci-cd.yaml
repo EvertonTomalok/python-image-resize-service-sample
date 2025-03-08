@@ -1,0 +1,57 @@
+name: <PROD> Push image-service code to kubernetes PRODUCTION environment
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Sample aplication
+      run: echo "This is a sample"
+
+    # # Uncomment code below to have it deployed to a kubernetes cluster
+    # - name: Login to Dockerhub
+    #   uses: docker/login-action@v1
+    #   with:
+    #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+    # - name: Bump version and push tag
+    #   id: tagging
+    #   uses: mathieudutour/github-tag-action@v4.5
+    #   with:
+    #     github_token: ${{ secrets.PERSONAL_TOKEN }}
+
+    # - name: Build container image
+    #   run: docker build -t <docker-registry>/image-service:${{ steps.tagging.outputs.new_version }} .
+
+    # - name: Push image to Container Registry
+    #   run: docker push <docker-registry>/image-service:${{ steps.tagging.outputs.new_version }}
+
+    # - name: Install doctl
+    #   uses: digitalocean/action-doctl@v2
+    #   with:
+    #     token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+
+    # - name: Setup kubectl
+    #   uses: matootie/dokube@v1.3.4
+    #   with:
+    #     personalAccessToken: ${{ secrets.DIGITALOCEAN_TOKEN }}
+    #     clusterName: my-cluster-k8s
+
+    # - name: set deployment image
+    #   run: kubectl set image deployment image-resize-worker image-resize-worker=<docker-registry>/image-service:${{ steps.tagging.outputs.new_version }}
+
+    # - name: set cronjob channel resize image
+    #   run: kubectl set image cronjob cronjob-channel-image-resize cronjob-channel-image-resize=<docker-registry>/image-service:${{ steps.tagging.outputs.new_version }}
+
+    # - name: set cronjob episodes resize image
+    #   run: kubectl set image cronjob cronjob-episodes-image-resize cronjob-episodes-image-resize=<docker-registry>/image-service:${{ steps.tagging.outputs.new_version }}
