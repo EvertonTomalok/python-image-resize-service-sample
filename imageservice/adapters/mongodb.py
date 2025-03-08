@@ -9,7 +9,7 @@ DATABASE_NAME = "dbkube-dev" if DB_ENVIRONMENT.upper() == "DEVELOP" else "dbkube
 MONGODB_SETTINGS = {
     "url": getenv(
         "MONGO_URL",
-        f"mongodb+srv://UserKube:cWsbTvfi0ffrItV5@clusterkubemongo-l5ehh.mongodb.net/{DATABASE_NAME}",
+        "",
     )
 }
 
