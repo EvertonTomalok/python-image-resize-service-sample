@@ -1,0 +1,1 @@
+# python-image-resize-service-sample
