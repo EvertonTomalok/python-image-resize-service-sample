@@ -15,7 +15,8 @@ To set up including development libraries, run:
 
 - `make setup-dev`
 
-# Script for Resizing New Channel Images
+# Running local
+## Script for Resizing New Channel Images
 
 ## How to Schedule a CRON JOB
 
